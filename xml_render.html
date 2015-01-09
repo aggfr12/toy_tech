@@ -79,35 +79,42 @@
 <script src="http://store-jac1n.mybigcommerce.com/template/content/js/ParseHelper.js"></script>
 <script src="http://store-jac1n.mybigcommerce.com/template/content/js/SampleInput.js"></script>
 <script>
-
   console.clear();
 
+  function renderNode(node) {
+    /*
+      Stub method:
+        Accepts a tree node (see Node.js) and creates a nested HTML, color coded representation
+      Each node should display:
+        Opening tag with it's name and attributes listed prettily
+        Indented children or text content
+        Closing tag
+    */
+  }
+
+  function enableCollapsibility() {
+    /*
+     Optional extra-badass stub method:
+      Add a +/- button to toggle the collapse of a node and it's children
+      Temporarily replace the contents with an ellipses (...)
+     */
+  }
+
+  /* Basic harness code */
   $("#parseButton").bind("click", function () {
+
+    // Get the string value
     var inputString = $("#inputXml").val();
-    nodeTree = Parser.getValidNode(inputString);
+
+    // Create the element tree
+    var nodeTree = Parser.getValidNode(inputString);
+
+    // Log it
     console.log(nodeTree);
+
+    // Push the rendered output
     $('#formattedOutput').html(renderNode(nodeTree));
   });
 
-  function renderNode(node) {
-    // WORK HERE!
-    var $elem = $('<div></div>');
-    node.name && $elem.append('&lt;<span class="tag">' + node.name + '</span>');
-
-    for (var i = 0; i < node.attributes.length; i++) {
-      $elem.append(' <span class="attr">' + node.attributes[i].name + '</span>');
-      node.attributes[i].value && $elem.append('=<span class="value">' + node.attributes[i].value + '</span>');
-    }
-
-    node.children.length + node.contents.length > 0 ? $elem.append('&gt;') : $elem.append('/&gt;');
-    node.contents && $elem.append('<span class="text">' + node.contents + '</span>');
-
-    for (var i = 0; i < node.children.length; i++) {
-      $elem.append(renderNode(node.children[i]));
-    }
-
-    node.children.length + node.contents.length > 0 && $elem.append('&lt;/<span class="tag">' + node.name + '</span>&gt;');
-    return $elem;
-  }
 </script>
 </html>

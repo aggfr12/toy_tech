@@ -2,17 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="57b64ce4-71b8-448e-994d-0ac50e85b629" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Node.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/ParseHelper.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Parser.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/SampleInput.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/xml_render.html" afterPath="$PROJECT_DIR$/xml_render.html" />
     </list>
     <ignored path="toy_tech.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="57b64ce4-71b8-448e-994d-0ac50e85b629" time="1420782090421" ignored="false" />
     <file path="/ParseHelper.js" changelist="57b64ce4-71b8-448e-994d-0ac50e85b629" time="1420785746532" ignored="false" />
-    <file path="/xml_render.html" changelist="57b64ce4-71b8-448e-994d-0ac50e85b629" time="1420787060918" ignored="false" />
+    <file path="/xml_render.html" changelist="57b64ce4-71b8-448e-994d-0ac50e85b629" time="1420788819659" ignored="false" />
     <file path="/a.dummy" changelist="57b64ce4-71b8-448e-994d-0ac50e85b629" time="1420784903643" ignored="false" />
     <file path="/Parser.js" changelist="57b64ce4-71b8-448e-994d-0ac50e85b629" time="1420785370939" ignored="false" />
     <file path="/SampleInput.js" changelist="57b64ce4-71b8-448e-994d-0ac50e85b629" time="1420788288635" ignored="false" />
@@ -34,10 +30,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="xml_render.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="xml_render.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/xml_render.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="0" selection-start="1702" selection-end="1702" vertical-scroll-proportion="-5.8163266">
+            <state line="99" column="7" selection-start="2272" selection-end="2272" vertical-scroll-proportion="1.100629">
               <folding />
             </state>
           </provider>
@@ -76,10 +72,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SampleInput.js" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="SampleInput.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/SampleInput.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="77" selection-start="1417" selection-end="1417" vertical-scroll-proportion="0.8574144">
+            <state line="35" column="77" selection-start="1417" selection-end="1417" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -106,8 +102,8 @@
         <option value="$PROJECT_DIR$/Node.js" />
         <option value="$PROJECT_DIR$/Parser.js" />
         <option value="$PROJECT_DIR$/ParseHelper.js" />
-        <option value="$PROJECT_DIR$/xml_render.html" />
         <option value="$PROJECT_DIR$/SampleInput.js" />
+        <option value="$PROJECT_DIR$/xml_render.html" />
       </list>
     </option>
   </component>
@@ -359,16 +355,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/xml_render.html">
+    <entry file="file://$PROJECT_DIR$/SampleInput.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="0" selection-start="1702" selection-end="1702" vertical-scroll-proportion="-5.8163266">
+        <state line="35" column="77" selection-start="1417" selection-end="1417" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SampleInput.js">
+    <entry file="file://$PROJECT_DIR$/xml_render.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="77" selection-start="1417" selection-end="1417" vertical-scroll-proportion="0.8574144">
+        <state line="99" column="7" selection-start="2272" selection-end="2272" vertical-scroll-proportion="1.100629">
           <folding />
         </state>
       </provider>
