@@ -6,7 +6,33 @@
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <!-- Add your styles here! -->
     <style>
-
+    	div div {
+    		padding-left: 30px;
+    		font-family: 'Courier New', sans-serif;
+    		font-weight: bold;
+    		margin-bottom: 3px;
+    		margin-top: 3px;
+    		color: white;
+    	}
+    	.tag {
+    		color: #F03073;
+    	}
+    	.attr {
+    		color: yellowgreen;
+    	}
+    	.value {
+    		color: khaki;
+    	}
+    	.text {
+    		color: lightblue;
+    	}
+    	#inputXml {
+    		width: 500px;
+    		height: 150px;
+    	}
+    	#formattedOutput {
+    		background-color: #3D3D3D;
+    	}
     </style>
     <script>
     	// pseudo-classical Node class
@@ -131,18 +157,6 @@
 		    }
 		})();
 
-		$("#parseButton").bind("click",function(){
-		    var inputString = $("#inputXml").val();
-		    nodeTree = Parser.getValidNode(inputString);
-		    console.log(nodeTree);
-		    $('#formattedOutput').html('');
-		    // $('#formattedOutput').append(renderNode(nodeTree));
-		});
-
-		function renderNode(node) {
-			// WORK HERE!
-		}
-
 		window.onerror = function(msg){
 		    $("#errorLog").append($("<p>").text(msg));
 		}
@@ -164,4 +178,33 @@
 	<div id="formattedOutput"></div>
 	<div id="errorLog"></div>
   </body>
+  <script>
+	$("#parseButton").bind("click",function(){
+	    var inputString = $("#inputXml").val();
+	    nodeTree = Parser.getValidNode(inputString);
+	    console.log(nodeTree);
+	    $('#formattedOutput').html(renderNode(nodeTree));
+	});
+
+	function renderNode(node) {
+		// WORK HERE!
+		var $elem = $('<div></div>');
+		node.name && $elem.append('&lt;<span class="tag">' + node.name + '</span>');
+
+		for (var i = 0; i < node.attributes.length; i++) {
+			$elem.append(' <span class="attr">' + node.attributes[i].name + '</span>');
+			node.attributes[i].value && $elem.append('=<span class="value">' + node.attributes[i].value + '</span>');
+		}
+
+		node.closeTag ? $elem.append('&gt;') : $elem.append('/&gt;');
+		node.contents && $elem.append('<span class="text">' + node.contents + '</span>');
+
+		for (var i = 0; i < node.children.length; i++) {
+	        $elem.append(renderNode(node.children[i]));
+	    }
+
+	   	node.closeTag && $elem.append('&lt;/<span class="tag">' + node.name + '</span>&gt;');
+	    return $elem;
+	}
+  </script>
 </html>
