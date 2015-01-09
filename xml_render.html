@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>MANCRATES</title>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <!-- Add your styles here! -->
+    <style>
+
+    </style>
+    <script>
+    	// pseudo-classical Node class
+		var Node = function(openTag, contents, closeTag){
+		    this.openTag = openTag;
+		    this.closeTag = closeTag;
+		    this.name = ParseHelper.getTagName(openTag);
+		    this.attributes = ParseHelper.getTagAttributes(openTag);
+		    this.children = [];
+		    while(Parser.getValidNode(contents)){
+		        var nextNode = Parser.getValidNode(contents);
+		        this.children.push(nextNode);
+		        contents = Parser.removeNode(contents, nextNode);
+		    }
+		    this.contents = $.trim(contents);
+		}
+
+		// Singleton Parser object
+		var Parser =  {
+		    getValidNode : function(inputString){
+		        // remove white space
+		        inputString = $.trim(inputString);
+		        var openTag = ParseHelper.getOpenTag(inputString),
+		            closeTag = null,
+		            contents = null;
+		        if(!openTag){
+		            return false;
+		        }
+		        
+		        // weak sauce check to see if we expect a closing tag
+		        if(openTag.indexOf('/>') == -1){
+		            closeTag = ParseHelper.getClosingTag(inputString, openTag);
+		            contents = ParseHelper.getTagContents(inputString, openTag, closeTag);
+		        }
+		        
+		        return new Node(openTag, contents, closeTag);
+		    },
+		    
+		    removeNode : function(inputString, node){
+		        inputString = ParseHelper.spliceNode(inputString, node);
+		        return $.trim(inputString);
+		    }
+		}
+
+		var ParseHelper = (function(){
+		    
+		    // Private DRY methods
+		    var VALID_OPEN_TAG = new RegExp(/<([a-z]+?)((\ [a-z]*)(((="[^"]*"|='[^']*'|[^'">=])))?)*(\/)?>/i);
+		    extractBetween = function(inputString, lhs, rhs){
+		      var matches = inputString.match(new RegExp(lhs+'([^]*?)'+rhs));
+		      if(matches){
+		          return $.trim(matches.pop());
+		      }   
+		      return false;
+		    };
+		    regEscape = function(text) {
+		      return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+		    };
+		    parseError = function(errorMessage){
+		        throw 'ParseHelper error: ' + errorMessage;
+		    };
+		    
+		    // Public interface methods
+		    return {
+		        // Regex to extract the name of a valid open tag
+		        getTagName : function(tagString){
+		            return extractBetween(tagString, '<', '[/ />//]')
+		        },
+		    
+		        // Extract an array of {name,value} attributes from a valid open tag
+		        getTagAttributes : function(tagString){
+		            var attributeString = extractBetween(tagString, ' ', '[/>//>]'),
+		                attributes = [];
+		            if(!attributeString){
+		                return attributes;
+		            }
+		            var attributeList = attributeString.split(" ");
+		            for(var i = 0; i < attributeList.length; i ++){
+		                var attr = attributeList[i],
+		                    keyVal;
+		                if(attr.indexOf("=") > 0){
+		                    keyVal = attr.split("=");
+		                    attributes.push( { 
+		                        name: keyVal[0],
+		                        value: keyVal[1]
+		                    })                    
+		                } else {
+		                    attributes.push( { name: attr } );
+		                }
+		            }
+		            return attributes;
+		        },
+		        
+		        // Get the first valid open tag from 
+		        getOpenTag : function(inputString){
+		            if(VALID_OPEN_TAG.test(inputString)){            
+		                return inputString.match(VALID_OPEN_TAG)[0];
+		            }
+		            return false;
+		        },
+		        getClosingTag : function(inputString, openTag){
+		            var tagName = ParseHelper.getTagName(openTag);
+		            var closeTag = new RegExp("</" + tagName + ">");
+		            if(closeTag.test(inputString)){            
+		                return inputString.match(closeTag)[0];
+		            }
+		            return false;
+		        },
+		        getTagContents : function(inputString, openTag, closeTag){
+		            return extractBetween(inputString, regEscape(openTag), regEscape(closeTag));
+		        },
+		        spliceNode : function(inputString, node){
+		            var indexStart = inputString.indexOf(node.openTag),
+		                indexEnd;
+		            if(node.closeTag){
+		                indexEnd = inputString.indexOf(node.closeTag) + node.closeTag.length;
+		            } else {
+		                indexEnd = indexStart + node.openTag.length;
+		            }
+		            return inputString.substr(0,indexStart) + inputString.substr(indexEnd,inputString.length);
+		        }
+		    }
+		})();
+
+		$("#parseButton").bind("click",function(){
+		    var inputString = $("#inputXml").val();
+		    nodeTree = Parser.getValidNode(inputString);
+		    console.log(nodeTree);
+		    $('#formattedOutput').html('');
+		    // $('#formattedOutput').append(renderNode(nodeTree));
+		});
+
+		function renderNode(node) {
+			// WORK HERE!
+		}
+
+		window.onerror = function(msg){
+		    $("#errorLog").append($("<p>").text(msg));
+		}
+		console.clear();
+    </script>
+  </head>
+  <body>
+    <!-- page content -->
+    <textarea id="inputXml">
+	<complexType name='ShipInfoType'>
+	    <sequence>
+	      	<element name='ShipVia' type='integer'/>
+	       	<element name='ShipCountry' type='string'/>
+	    </sequence>
+	    <attribute name='ShippedDate' type='dateTime'/>
+	  </complexType>
+	</textarea>
+	<input type="button" id="parseButton" value="parse"/>
+	<div id="formattedOutput"></div>
+	<div id="errorLog"></div>
+  </body>
+</html>
