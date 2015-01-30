@@ -90,6 +90,31 @@
         Indented children or text content
         Closing tag
     */
+    var formattedXML = $('<div>');
+    formattedXML.append('&lt;<span class="tag">' + node.name + '</span>');
+
+    node.attributes.forEach(function(ele){
+      formattedXML.append(' <span class="attr">' + ele.name + '</span>=<span class="value">' + ele.value + '</span>');
+    });
+
+    if (node.contents.length === 0 && node.children.length === 0) {
+      formattedXML.append('/&gt;');
+    }
+
+    if (node.contents) {
+      formattedXML.append('&gt;<br>&nbsp;&nbsp;&nbsp;<span class="text">' + node.contents + '</span><br>');
+      formattedXML.append('&lt;<span class="tag">/' + node.name + '</span>> ');
+    }
+
+    if (node.children.length > 0) {
+      formattedXML.append('&gt;');
+      node.children.forEach(function(child) {
+        formattedXML.append(renderNode(child));
+      });
+      formattedXML.append('&lt;<span class="tag">/' + node.name + '</span>> ');
+    }
+
+    return formattedXML;
   }
 
   function enableCollapsibility() {
